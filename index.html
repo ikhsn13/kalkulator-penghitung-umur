@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Penghitung Umur</title>
+  <style>
+    *{
+      font-family: Arial, Helvetica, sans-serif;
+      box-sizing: border-box;
+    }
+
+    body{
+      background: #f2f4f8;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      height:100vh;
+      margin:0;
+    }
+
+    .card{
+      background:white;
+      padding:25px 30px;
+      border-radius:15px;
+      box-shadow:0 10px 25px rgba(0,0,0,.1);
+      width:350px;
+      text-align:center;
+    }
+
+    h2{
+      margin-top:0;
+    }
+
+    input{
+      padding:10px;
+      width:100%;
+      border-radius:8px;
+      border:1px solid #ccc;
+      margin:10px 0 15px 0;
+    }
+
+    button{
+      padding:10px;
+      width:100%;
+      border-radius:8px;
+      border:none;
+      cursor:pointer;
+      font-weight:bold;
+      background:#007bff;
+      color:white;
+    }
+
+    button:hover{
+      opacity:.9;
+    }
+
+    .hasil{
+      margin-top:15px;
+      font-size:15px;
+      background:#eef4ff;
+      padding:12px;
+      border-radius:10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h2>Penghitung Umur</h2>
+
+    <label>Pilih tanggal lahir:</label>
+    <input type="date" id="tgl">
+
+    <button onclick="hitungUmur()">Hitung Umur</button>
+
+    <div class="hasil" id="hasil"></div>
+  </div>
+
+<script>
+function hitungUmur(){
+    const tgl = document.getElementById("tgl").value;
+    const hasil = document.getElementById("hasil");
+
+    if(!tgl){
+        hasil.innerHTML = "Silakan pilih tanggal lahir terlebih dahulu.";
+        return;
+    }
+
+    const lahir = new Date(tgl);
+    const hariIni = new Date();
+
+    let tahun = hariIni.getFullYear() - lahir.getFullYear();
+    let bulan = hariIni.getMonth() - lahir.getMonth();
+    let hari = hariIni.getDate() - lahir.getDate();
+
+    if (hari < 0) {
+        bulan--;
+        const bulanSebelumnya = new Date(hariIni.getFullYear(), hariIni.getMonth(), 0).getDate();
+        hari += bulanSebelumnya;
+    }
+
+    if (bulan < 0) {
+        tahun--;
+        bulan += 12;
+    }
+
+    hasil.innerHTML =
+      `Umur Anda:<br><b>${tahun} Tahun, ${bulan} Bulan, ${hari} Hari</b>`;
+}
+</script>
+
+</body>
+</html>
